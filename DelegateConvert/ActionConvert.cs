@@ -5,6 +5,11 @@ namespace DelegateConvert
 {
     public class ActionConvert
     {
+        /// <summary>
+        /// Converts any generic Action to the given return type
+        /// </summary>
+        /// <param name="sourceDelegate">Should be Action<TX,...></param>
+        /// <returns></returns>
         public static Action<object[]> ConvertToObjectParams(Delegate sourceDelegate)
         {
             if (sourceDelegate.Method.ReturnType != typeof(void))

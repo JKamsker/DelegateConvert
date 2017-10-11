@@ -19,15 +19,15 @@ namespace DelegateConvert.Test
 
         private static void ActionTest()
         {
-            Action<string, string, int> dst = (x, y, z) => Console.WriteLine($"STR1: {x} STR2: {y} INT: {z}");
-            var myDele = ActionConvert.ConvertToObjectParams(dst);
+            Action<string, string, int> sourceAction = (x, y, z) => Console.WriteLine($"STR1: {x} STR2: {y} INT: {z}");
+            Action<object[]> myDele = ActionConvert.ConvertToObjectParams(sourceAction);
             myDele(new object[] { "Hey", "Yo", 123 });
         }
 
         private static void FunctionTest()
         {
             Func<int, int, int, bool> checksum = (x, y, z) => x + y == z;
-            var myDele = FuncConvert.ConvertToObjectParams<bool>(checksum);
+            Func<object[], bool> myDele = FuncConvert.ConvertToObjectParams<bool>(checksum);
             if (myDele(new object[] { 1, 2, 3 }))
             {
                 Console.WriteLine("Yay");

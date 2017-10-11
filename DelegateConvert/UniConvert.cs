@@ -5,6 +5,12 @@ namespace DelegateConvert
 {
     public class UniConvert
     {
+        /// <summary>
+        /// Despite it's public access modifier, it's unnecessary to call it directly, just call it when you know what you are doing and want (for example) to decrease your call stack
+        /// </summary>
+        /// <param name="sourceDelegate">Can be Action<TX,...> or Func<TX,...></param>
+        /// <param name="returnParameterType"></param>
+        /// <returns></returns>
         public static Delegate ConvertToObjectArrParams(Delegate sourceDelegate, Type returnParameterType = null)
         {
             var method = sourceDelegate.Method;

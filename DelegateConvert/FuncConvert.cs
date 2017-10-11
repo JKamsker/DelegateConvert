@@ -5,6 +5,11 @@ namespace DelegateConvert
 {
     public class FuncConvert
     {
+        /// <summary>
+        /// Converts any generic Func to the given return type
+        /// </summary>
+        /// <param name="sourceDelegate">Should be Func<TX,...></param>
+        /// <returns></returns>
         public static Func<object[], object> ConvertToObjectParams(Delegate sourceDelegate)
         {
             if (sourceDelegate.Method.ReturnType == typeof(void))
@@ -13,12 +18,18 @@ namespace DelegateConvert
             return (Func<object[], object>)UniConvert.ConvertToObjectArrParams(sourceDelegate);
         }
 
-        public static Func<object[], T> ConvertToObjectParams<T>(Delegate sourceDelegate)
+        /// <summary>
+        /// Converts any generic Func to the given return type
+        /// </summary>
+        /// <typeparam name="TReturn">The required return type</typeparam>
+        /// <param name="sourceDelegate">Should be Func<TX,...></param>
+        /// <returns></returns>
+        public static Func<object[], TReturn> ConvertToObjectParams<TReturn>(Delegate sourceDelegate)
         {
             if (sourceDelegate.Method.ReturnType == typeof(void))
                 throw new Exception("Invalid source delegate Type");
 
-            return (Func<object[], T>)UniConvert.ConvertToObjectArrParams(sourceDelegate, typeof(T));
+            return (Func<object[], TReturn>)UniConvert.ConvertToObjectArrParams(sourceDelegate, typeof(TReturn));
         }
     }
 }
