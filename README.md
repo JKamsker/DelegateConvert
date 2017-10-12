@@ -16,13 +16,13 @@ Do not use this library when you know T at compile time, do something like that 
 #### Converting ```Action<string, string, int> ``` to ```Action<object[]>```
 ```csharp
 	Action<string, string, int> sourceAction = (x, y, z) => Console.WriteLine($"STR1: {x} STR2: {y} INT: {z}");
-	Action<object[]>  myDele = ActionConvert.ConvertToObjectParams(sourceAction);
+	Action<object[]>  myDele = ActionConvert.Convert(sourceAction);
 	myDele(new object[] { "Hey", "Yo", 123 });
 ```
 #### Converting ```Func<int, int, int, bool> ``` to ```Func<object[], bool>```
 ```csharp
     Func<int, int, int, bool> checksum = (x, y, z) => x + y == z;
-    Func<object[], bool> myDele = FuncConvert.ConvertToObjectParams<bool>(checksum);
+    Func<object[], bool> myDele = FuncConvert.Convert<bool>(checksum);
     if (myDele(new object[] { 1, 2, 3 }))
     {
     	Console.WriteLine("Yay");
@@ -36,7 +36,7 @@ Do not use this library when you know T at compile time, do something like that 
 #### Converting ```Func<int, int, int, bool> ``` to ```Func<object[], object>```
 ```csharp
     Func<int, int, int, bool> checksum = (x, y, z) => x + y == z;
-    Func<object[], object> myDele = FuncConvert.ConvertToObjectParams(checksum);
+    Func<object[], object> myDele = FuncConvert.Convert(checksum);
     if (myDele(new object[] { 1, 2, 3 }))
     {
     	Console.WriteLine("Yay");
