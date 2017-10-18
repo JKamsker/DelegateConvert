@@ -1,7 +1,7 @@
 ﻿using System;
-using System.Linq.Expressions;
+using DelegateConvert;
 
-namespace DelegateConvert
+namespace JSocket.Utilities.Generic.Delegate.DelegateConvert
 {
     public class ActionConvert
     {
@@ -10,12 +10,12 @@ namespace DelegateConvert
         /// </summary>
         /// <param name="sourceDelegate">Should be Action<TX,...></param>
         /// <returns></returns>
-        public static Action<object[]> Convert(Delegate sourceDelegate)
+        public static Action<object[]> Convert(System.Delegate sourceDelegate)
         {
             if (sourceDelegate.Method.ReturnType != typeof(void))
                 throw new Exception("Invalid source delegate Type");
 
-            return (Action<object[]>)UniConvert.ConvertToObjectArrParams(sourceDelegate);
+            return (Action<object[]>)DelegateConverter.Convert(sourceDelegate);
         }
     }
 }

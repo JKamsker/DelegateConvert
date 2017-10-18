@@ -41,9 +41,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ActionConvert.cs" />
+    <Compile Include="DelegateConverter.cs" />
     <Compile Include="FuncConvert.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UniConvert.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

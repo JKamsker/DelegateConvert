@@ -15,7 +15,7 @@ namespace DelegateConvert
             if (sourceDelegate.Method.ReturnType == typeof(void))
                 throw new Exception("Invalid source delegate Type");
 
-            return (Func<object[], object>)UniConvert.ConvertToObjectArrParams(sourceDelegate);
+            return (Func<object[], object>)DelegateConverter.Convert(sourceDelegate);
         }
 
         /// <summary>
@@ -29,7 +29,7 @@ namespace DelegateConvert
             if (sourceDelegate.Method.ReturnType == typeof(void))
                 throw new Exception("Invalid source delegate Type");
 
-            return (Func<object[], TReturn>)UniConvert.ConvertToObjectArrParams(sourceDelegate, typeof(TReturn));
+            return (Func<object[], TReturn>)DelegateConverter.Convert(sourceDelegate, typeof(TReturn));
         }
     }
 }
