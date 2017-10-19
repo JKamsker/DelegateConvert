@@ -17,6 +17,9 @@ namespace DelegateConvert.Test
             TimedTests.RawTest();
             TimedTests.MethodInvokeTest();
             TimedTests.DynamicInvokeTest();
+            TimedTests.DirectDelegateInvokeTest();
+            TimedTests.DirectDelegateCastInvokeTest();
+            TimedTests.ExpressionDelegateInvokeTest();
 
             Console.ReadLine();
             ActionTest();
@@ -45,9 +48,10 @@ namespace DelegateConvert.Test
             }
         }
     }
+
     public class TimedTests
     {
-        private const int Loops = 5000000;
+        private const int Loops = 10000000;
 
         private static MethodInfo GetMethodInfo()
         {
@@ -97,7 +101,55 @@ namespace DelegateConvert.Test
             }
             Console.WriteLine($"{Loops} DynamicInvokeTest took {sw.Elapsed.TotalMilliseconds} ms");
         }
+
+        public static void ExpressionDelegateInvokeTest()
+        {
+            var instance = new DummyCaller();
+            var method = GetMethodInfo();
+            var invokeParams = new object[] { 1, 2, 3, 4, 5, 6, 7, 8 };
+
+            var dele = DelegateConverter.Convert(method, instance) as Func<object[], object>;
+
+            var sw = Stopwatch.StartNew();
+            for (int i = 0; i < Loops; i++)
+            {
+                dele(invokeParams);
+            }
+            Console.WriteLine($"{Loops} ExpressionDelegateInvokeTest took {sw.Elapsed.TotalMilliseconds} ms");
+        }
+
+        public static void DirectDelegateInvokeTest()
+        {
+            var instance = new DummyCaller();
+            var method = GetMethodInfo();
+
+            Func<int, int, int, int, int, int, int, int, int> dele = (int p1, int p2, int p3, int p4, int p5, int p6, int p7, int p8) => p1 + p2 + p3 + p4 + p5 + p6 + p7 + p8;
+
+            var sw = Stopwatch.StartNew();
+            for (int i = 0; i < Loops; i++)
+            {
+                dele(1, 2, 3, 4, 5, 6, 7, 8);
+            }
+            Console.WriteLine($"{Loops} DirectDelegateInvokeTest took {sw.Elapsed.TotalMilliseconds} ms");
+        }
+
+        public static void DirectDelegateCastInvokeTest()
+        {
+            var instance = new DummyCaller();
+            var method = GetMethodInfo();
+            var invokeParams = new object[] { 1, 2, 3, 4, 5, 6, 7, 8 };
+
+            Func<object[], object> dele = (object[] input) => (int)input[0] + (int)input[1] + (int)input[2] + (int)input[3] + (int)input[4] + (int)input[5] + (int)input[6] + (int)input[7];
+
+            var sw = Stopwatch.StartNew();
+            for (int i = 0; i < Loops; i++)
+            {
+                dele(invokeParams);
+            }
+            Console.WriteLine($"{Loops} DirectDelegateCastInvokeTest took {sw.Elapsed.TotalMilliseconds} ms");
+        }
     }
+
     public class DummyCaller
     {
         public int Sum(int p1, int p2, int p3, int p4, int p5, int p6, int p7, int p8)
