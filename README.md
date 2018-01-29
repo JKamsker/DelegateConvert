@@ -1,3 +1,6 @@
+[Deprecated; New home : UtiLib.Delegates ( https://github.com/J-kit/UtiLib)]
+
+
 # DelegateConvert
 
 Who doesn't know the struggle: You are trying to call an generic Action or Func without knowing their exact Type. <br>
